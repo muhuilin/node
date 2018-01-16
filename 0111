@@ -1,0 +1,19 @@
+数据结构=结构定义+结构操作
+
+如果realloc 成功 会把原来的数据拷贝过去 然后返回一个首地址 是可以原来的地址 如果是地址重合了 必须要进行
+内存移动 
+memcmy的局限 
+memove 的 实现
+http://blog.csdn.net/hgj125073/article/details/8468746
+http://blog.csdn.net/Li_Ning_/article/details/51418400
+C 语言默认参数的实现 
+
+/#n 将n转换成字符串 如果是一个空串 那么第0位就是 /0 ASCII码为0 所以就为 0 所以跳到了 defval
+
+DP优化
+
+5 4 1 2 4
+4 4 1 2 5
+2 4 1 4 5
+4 2 1 4 5
+
