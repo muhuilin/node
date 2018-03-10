@@ -104,7 +104,7 @@ int main()
             int tmp =  front(q, int);
             printf("%d\n", tmp);
         }
-        output(q);
+        //output(q);
     }
     clear(q);
 }

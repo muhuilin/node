@@ -53,7 +53,7 @@ void merge_sort(int *num, int l, int r) {
     int mid = (l + r) >> 1;
     merge_sort(num, l, mid);
     merge_sort(num, mid + 1, r);
-    int *temp = (int *)malloc(sizeof(int ) * (r - l + 1));
+    int *temp = (int *)calloc((r - l + 1),sizeof(int ));
     int ind1 = l, ind2 = mid + 1, k = 0;
     while(ind1 <= mid || ind2 <= r) {
         if(ind2 > r || (ind1 <= mid && num[ind1] <= num[ind2])) {
@@ -109,16 +109,34 @@ void lowquick_sort(int *num, int l, int r) {
 void quick_sort(int *num, int l, int r) {
     if (l >= r) return ;
     while(l < r) {
-    int x = l, y = r, z = num[(l + r )  / 2];
+        int x = l, y = r, z = num[(l + r )  / 2];
+        while(x <= y) {
+            printf("%d %d %d %d %d --",z, x, num[x], y, num[y]);
+            fflush(stdout);
+            while(x <= y && num[x] < z) ++x;
+            while(x <= y && num[y] > z) --y;
+            if(x <= y) {
+                printf("%d %d\n",x , y);
+                swap(num[x], num[y]);
+                ++x;
+                --y;
+            }
+        }
+        quick_sort(num, x, r);
+        r = x - 1;
+    }
+    return ;
+}
+/*
     do {
-        while(num[x] < z) ++x;
-        while(num[y] > z) --y;
+        while(num[x] <= z) ++x;
+        while(num[y] >= z) --y;
         if(x <= y) {
             swap(num[x], num[y]);
             ++x;
             --y;
         }
-    }while(x <= y);
+    }while(x < y);*/
     /*while(x < y) {
         while(x < y && num[y] >= z) y--;
         if(x < y) num[x] = num[y], x++;
@@ -126,12 +144,16 @@ void quick_sort(int *num, int l, int r) {
         if(x < y) num[y] = num[x], y--;
     }*/
     //num[x] = z;
-    quick_sort(num, l, y);
-    r = y;
-    }
-    return ;
-}
-
+ /*       while(x < y) {
+            while(num[x] < z && x < y) ++x;
+            while(num[y] > z && x < y) --y;
+            if(x < y) {
+                swap(num[x], num[y]);
+                ++x;
+                --y;
+            }
+        }
+        quick_sort(num, y, r);*/
 void count_sort(int *num, int n) {
     #define MAX_N 1000
     int *temp = (int *)calloc(MAX_N + 1,sizeof(int ));
@@ -182,11 +204,12 @@ void radix_sort(int *num, int n) {
 
 int main() {
     srand(time(0));
-    TEST(20, insert_sort(num, 20));
-    TEST(20, bubble_sort(num, 20));
-    TEST(20, merge_sort(num, 0, 19));
-    TEST(20, select_sort(num, 20));
+    //TEST(20, insert_sort(num, 20));
+    //TEST(20, bubble_sort(num, 20));
+    //TEST(20, merge_sort(num, 0, 19));
+    //TEST(20, select_sort(num, 20));
     TEST(20, quick_sort(num, 0, 19));
+    //TEST(20, radix_sort(num, 20));
     return 0;
     
 }
